@@ -1,55 +1,44 @@
+import { getAllProducts, getProductById } from './shopifyService';
 import type { Product } from '$lib/types/product';
 
-// Mock data - in a real app, this would be fetched from an API
-const mockProducts: Product[] = [
-  {
-    id: "1",
-    name: "Designer Sneakers",
-    description: "Premium sneakers with comfort technology",
-    price: 129.99,
-    category: "shoes",
-    imageUrl: "https://via.placeholder.com/150"
-  },
-  {
-    id: "2",
-    name: "Silver Bracelet",
-    description: "Elegant bracelet with minimalist design",
-    price: 49.99,
-    category: "accessories",
-    imageUrl: "https://via.placeholder.com/150"
-  },
-  {
-    id: "3",
-    name: "Leather Tote Bag",
-    description: "Spacious tote bag with premium leather finish",
-    price: 89.99,
-    category: "handbags",
-    imageUrl: "https://via.placeholder.com/150"
-  },
-  {
-    id: "4",
-    name: "Silk Blouse",
-    description: "Lightweight silk blouse for all occasions",
-    price: 69.99,
-    category: "clothing",
-    imageUrl: "https://via.placeholder.com/150"
-  }
-];
+// Convert Shopify product to your app's product format
+function convertShopifyProduct(shopifyProduct: any): Product {
+  return {
+    id: shopifyProduct.id.toString(),
+    name: shopifyProduct.title,
+    description: shopifyProduct.descriptionHtml || shopifyProduct.description,
+    price: parseFloat(shopifyProduct.variants[0].price),
+    imageUrl: shopifyProduct.images[0]?.src || 'https://via.placeholder.com/150',
+    category: shopifyProduct.productType.toLowerCase()
+  };
+}
 
 export async function searchProducts(query: string): Promise<Product[]> {
-  // Simulate API call delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  // Get all products from Shopify
+  const shopifyProducts = await getAllProducts();
   
-  // In a real app, this would be an API request
-  // return fetch(`/api/products?search=${query}`).then(res => res.json());
-  
-  return mockProducts.filter(product => 
-    product.name.toLowerCase().includes(query.toLowerCase()) ||
-    product.description.toLowerCase().includes(query.toLowerCase())
-  );
+  // Filter and convert products
+  return shopifyProducts
+    .filter((product: any) => 
+      product.title.toLowerCase().includes(query.toLowerCase()) ||
+      (product.description && product.description.toLowerCase().includes(query.toLowerCase()))
+    )
+    .map(convertShopifyProduct);
 }
 
 export async function getCategories(): Promise<string[]> {
-  // In a real app, fetch categories from an API
-  return ["shoes", "accessories", "handbags", "clothing"];
+  // Get all products from Shopify
+  const shopifyProducts = await getAllProducts();
+  
+  // Extract unique categories
+  const categories = new Set(
+    shopifyProducts.map((product: any) => product.productType.toLowerCase())
+  );
+  
+  return Array.from(categories);
+}
+
+export async function getProductDetails(id: string): Promise<Product> {
+  const shopifyProduct = await getProductById(id);
+  return convertShopifyProduct(shopifyProduct);
 }

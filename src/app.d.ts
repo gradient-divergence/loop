@@ -14,6 +14,11 @@ declare global {
 			session: Session | null;
 		}
 	}
+	
+	interface ImportMetaEnv {
+		PUBLIC_SHOPIFY_STORE_DOMAIN: string;
+		PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: string;
+	}
 }
 
 export {};

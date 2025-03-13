@@ -56,6 +56,8 @@
 	"dependencies": {
 		"@supabase/auth-helpers-sveltekit": "^0.13.0",
 		"@supabase/supabase-js": "^2.49.1",
+		"dotenv": "^16.4.7",
+		"shopify-buy": "^3.0.0",
 		"tailwindcss-animate": "^1.0.7"
 	}
 }

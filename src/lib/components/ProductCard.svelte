@@ -7,22 +7,19 @@
   export let product: Product;
 </script>
 
-<Card>
-  <CardHeader>
-    <CardTitle>{product.name}</CardTitle>
-  </CardHeader>
-  <CardContent>
-    <div class="aspect-square w-full relative mb-4">
+<a href="/product/{product.id}" class="block group">
+  <div class="rounded-lg overflow-hidden border border-border hover:shadow-md transition-shadow">
+    <div class="aspect-[4/3] relative overflow-hidden">
       <img 
-        src={product.imageUrl} 
-        alt={product.name}
-        class="object-cover w-full h-full rounded-md"
+        src={product.imageUrl || 'https://via.placeholder.com/300'} 
+        alt={product.name} 
+        class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
       />
     </div>
-    <p class="text-sm text-muted-foreground">{product.description}</p>
-  </CardContent>
-  <CardFooter class="flex justify-between">
-    <p class="font-bold">${product.price.toFixed(2)}</p>
-    <Button on:click={() => addToCart(product)}>Add to Cart</Button>
-  </CardFooter>
-</Card>
+    
+    <div class="p-4">
+      <h3 class="font-medium">{product.name}</h3>
+      <p class="text-muted-foreground mt-1">${product.price.toFixed(2)}</p>
+    </div>
+  </div>
+</a>
