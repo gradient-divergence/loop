@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    /* Light mode colors */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+ 
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+ 
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+ 
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+ 
+    /* Keep brand colors similar but adjusted for light mode */
+    --primary: 300 65% 50%;
+    --primary-foreground: 0 0% 98%;
+ 
+    --secondary: 35 90% 55%;
+    --secondary-foreground: 240 10% 3.9%;
+ 
+    --accent: 220 70% 45%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --ring: 300 65% 50%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    /* Keep your dark mode colors as they were */
+    --background: 230 25% 18%;
+    --foreground: 0 0% 98%;
+ 
+    --muted: 240 5% 25%;
+    --muted-foreground: 240 5% 65%;
+ 
+    --popover: 230 25% 15%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --card: 230 25% 15%;
+    --card-foreground: 0 0% 98%;
+ 
+    --border: 240 5% 26%;
+    --input: 240 5% 26%;
+ 
+    --primary: 300 65% 55%;
+    --primary-foreground: 0 0% 98%;
+ 
+    --secondary: 35 90% 61%;
+    --secondary-foreground: 240 10% 3.9%;
+ 
+    --accent: 220 70% 50%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --ring: 300 65% 55%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
